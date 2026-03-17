@@ -1,0 +1,678 @@
+{
+  "info": {
+    "_postman_id": "8a05b2fa-c3e5-4c8c-b971-72532fc3845b",
+    "name": "Coperex",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "48271620",
+    "_collection_link": "https://go.postman.co/collection/48271620-8a05b2fa-c3e5-4c8c-b971-72532fc3845b?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Authentication Service",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5129/api/v1/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5129",
+              "path": [
+                "api",
+                "v1",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Register",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.json().token) {",
+                  "    pm.environment.set('authToken', pm.response.json().token);",
+                  "    pm.environment.set('userId', pm.response.json().user.id);",
+                  "    pm.environment.set('userEmail', pm.response.json().user.email);",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Frank Steve",
+                  "type": "text"
+                },
+                {
+                  "key": "surname",
+                  "value": "Paiz Diaz",
+                  "type": "text"
+                },
+                {
+                  "key": "username",
+                  "value": "fpaiz",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "fpaiz-2024264@kinal.edu.gt",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "piter12345",
+                  "type": "text"
+                },
+                {
+                  "key": "phone",
+                  "value": "54756628",
+                  "type": "text"
+                },
+                {
+                  "key": "profilePicture",
+                  "type": "file",
+                  "src": "/C:/Users/Cambiar Nombre/Downloads/neyma.webp"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:5129/api/v1/auth/register/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5129",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.json().token) {",
+                  "    pm.environment.set('authToken', pm.response.json().token);",
+                  "    pm.environment.set('userId', pm.response.json().userDetails.id);",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"emailOrUsername\": \"ADMIN\",\n    \"password\": \"administrador\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5129/api/v1/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5129",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify Email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"token\": \"Va_wSs993lKEAwBLbPA_P9ksVGy4945Cf27tSORDb5M\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5156/api/v1/auth/verify-email",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5156",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "verify-email"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Resend Verification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"erodriguez-2024250@kinal.edu.gt\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5156/api/v1/auth/resend-verification",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5156",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "resend-verification"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"erodriguez-2024250@kinal.edu.gt\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5156/api/v1/auth/forgot-password",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5156",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "forgot-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"token\": \"ag-FJvWyuyMhBBiKAvqgJ46Qvxk92wDp6hBO8NQhMhs\",\n    \"newPassword\": \"hola1234\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5156/api/v1/auth/reset-password",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5156",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "reset-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfY1BGeUR5OXB6aTFnIiwianRpIjoiYjQwNDg1MjQtMTA0ZC00NmExLWEyZDgtNTIxMTVlMTA2MzI5IiwiaWF0IjoxNzczNzEzNDk1LCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzcxNTI5NSwiaXNzIjoiQXV0aFNlcnZpY2VJbnRlcmZlciIsImF1ZCI6ImFwaUludGVyZmVyIn0.VwJ3DINb92hRr_KDSwKi-ZQRfJUFFxsmmIhNmvg7WFI",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5156/api/v1/auth/profile",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5156",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "profile"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Node.js",
+      "item": [
+        {
+          "name": "Create Businesse",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfdjRNekNlSzNGdnhjIiwianRpIjoiMDg4ZTdhNGQtMTRiMy00YmUyLThkNjUtNDVhOGZjNGY1YmJhIiwiaWF0IjoxNzczNzMzMTcyLCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzczNDk3MiwiaXNzIjoiQXV0aFNlcnZpY2VDb3BlcmV4IiwiYXVkIjoiYXBpQ29wZXJleCJ9.94DoS4t7D8pczg5ao0Tb14iiorhhyx8BnyMUGbtKbpM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"businessName\": \"Patsy\",\r\n  \"sector\": \"Pasteleria\",\r\n  \"impactScore\": \"LOW\",\r\n  \"experienceYears\": 10,\r\n  \"email\": \"contact@techsolutions.com\",\r\n  \"phone\": \"5555-1234\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3006/Coperex/v1/businesses/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Coperex",
+                "v1",
+                "businesses",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Businesse",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfdjRNekNlSzNGdnhjIiwianRpIjoiMDg4ZTdhNGQtMTRiMy00YmUyLThkNjUtNDVhOGZjNGY1YmJhIiwiaWF0IjoxNzczNzMzMTcyLCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzczNDk3MiwiaXNzIjoiQXV0aFNlcnZpY2VDb3BlcmV4IiwiYXVkIjoiYXBpQ29wZXJleCJ9.94DoS4t7D8pczg5ao0Tb14iiorhhyx8BnyMUGbtKbpM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3006/Coperex/v1/businesses",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Coperex",
+                "v1",
+                "businesses"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Businesse By Id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfdjRNekNlSzNGdnhjIiwianRpIjoiMDg4ZTdhNGQtMTRiMy00YmUyLThkNjUtNDVhOGZjNGY1YmJhIiwiaWF0IjoxNzczNzMzMTcyLCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzczNDk3MiwiaXNzIjoiQXV0aFNlcnZpY2VDb3BlcmV4IiwiYXVkIjoiYXBpQ29wZXJleCJ9.94DoS4t7D8pczg5ao0Tb14iiorhhyx8BnyMUGbtKbpM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3006/Coperex/v1/businesses/69b9054c5d3cde5f6b64b674",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Coperex",
+                "v1",
+                "businesses",
+                "69b9054c5d3cde5f6b64b674"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Businesse",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfdjRNekNlSzNGdnhjIiwianRpIjoiMDg4ZTdhNGQtMTRiMy00YmUyLThkNjUtNDVhOGZjNGY1YmJhIiwiaWF0IjoxNzczNzMzMTcyLCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzczNDk3MiwiaXNzIjoiQXV0aFNlcnZpY2VDb3BlcmV4IiwiYXVkIjoiYXBpQ29wZXJleCJ9.94DoS4t7D8pczg5ao0Tb14iiorhhyx8BnyMUGbtKbpM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"businessName\": \"Hello\",\r\n  \"sector\": \"Helados\",\r\n  \"impactScore\": \"LOW\",\r\n  \"experienceYears\": 10,\r\n  \"email\": \"contact@techsolutions.com\",\r\n  \"phone\": \"5555-1234\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3006/Coperex/v1/businesses/edit/69b9054c5d3cde5f6b64b674",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Coperex",
+                "v1",
+                "businesses",
+                "edit",
+                "69b9054c5d3cde5f6b64b674"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get By Sector",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfdjRNekNlSzNGdnhjIiwianRpIjoiMDg4ZTdhNGQtMTRiMy00YmUyLThkNjUtNDVhOGZjNGY1YmJhIiwiaWF0IjoxNzczNzMzMTcyLCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzczNDk3MiwiaXNzIjoiQXV0aFNlcnZpY2VDb3BlcmV4IiwiYXVkIjoiYXBpQ29wZXJleCJ9.94DoS4t7D8pczg5ao0Tb14iiorhhyx8BnyMUGbtKbpM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3006/Coperex/v1/businesses/sector/Helados",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Coperex",
+                "v1",
+                "businesses",
+                "sector",
+                "Helados"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get By Impact",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfY1BGeUR5OXB6aTFnIiwianRpIjoiMTk5NGQ1MWYtYTFiYi00YTZmLWEwZGItODRkM2RiYThhZTgzIiwiaWF0IjoxNzczNzIxNDAxLCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzcyMzIwMSwiaXNzIjoiQXV0aFNlcnZpY2VJbnRlcmZlciIsImF1ZCI6ImFwaUludGVyZmVyIn0.y7RjLNk30IRxdWwDVG-berkvenEfMM7nZfK_Uq41TnU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3006/Interfer/v1/companies/impact/ALTO",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Interfer",
+                "v1",
+                "companies",
+                "impact",
+                "ALTO"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get By Experience",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfdjRNekNlSzNGdnhjIiwianRpIjoiMDg4ZTdhNGQtMTRiMy00YmUyLThkNjUtNDVhOGZjNGY1YmJhIiwiaWF0IjoxNzczNzMzMTcyLCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzczNDk3MiwiaXNzIjoiQXV0aFNlcnZpY2VDb3BlcmV4IiwiYXVkIjoiYXBpQ29wZXJleCJ9.94DoS4t7D8pczg5ao0Tb14iiorhhyx8BnyMUGbtKbpM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3006/Coperex/v1/businesses/experience/6",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Coperex",
+                "v1",
+                "businesses",
+                "experience",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get A-Z",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfdjRNekNlSzNGdnhjIiwianRpIjoiMDg4ZTdhNGQtMTRiMy00YmUyLThkNjUtNDVhOGZjNGY1YmJhIiwiaWF0IjoxNzczNzMzMTcyLCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzczNDk3MiwiaXNzIjoiQXV0aFNlcnZpY2VDb3BlcmV4IiwiYXVkIjoiYXBpQ29wZXJleCJ9.94DoS4t7D8pczg5ao0Tb14iiorhhyx8BnyMUGbtKbpM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3006/Coperex/v1/businesses/sort/asc",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Coperex",
+                "v1",
+                "businesses",
+                "sort",
+                "asc"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Z-A",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfdjRNekNlSzNGdnhjIiwianRpIjoiMDg4ZTdhNGQtMTRiMy00YmUyLThkNjUtNDVhOGZjNGY1YmJhIiwiaWF0IjoxNzczNzMzMTcyLCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzczNDk3MiwiaXNzIjoiQXV0aFNlcnZpY2VDb3BlcmV4IiwiYXVkIjoiYXBpQ29wZXJleCJ9.94DoS4t7D8pczg5ao0Tb14iiorhhyx8BnyMUGbtKbpM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3006/Coperex/v1/businesses/sort/desc",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Coperex",
+                "v1",
+                "businesses",
+                "sort",
+                "desc"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Generate report",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3JfdjRNekNlSzNGdnhjIiwianRpIjoiMDg4ZTdhNGQtMTRiMy00YmUyLThkNjUtNDVhOGZjNGY1YmJhIiwiaWF0IjoxNzczNzMzMTcyLCJyb2xlIjoiQURNSU5fUk9MRSIsImV4cCI6MTc3MzczNDk3MiwiaXNzIjoiQXV0aFNlcnZpY2VDb3BlcmV4IiwiYXVkIjoiYXBpQ29wZXJleCJ9.94DoS4t7D8pczg5ao0Tb14iiorhhyx8BnyMUGbtKbpM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3006/Coperex/v1/reports/export",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3006",
+              "path": [
+                "Coperex",
+                "v1",
+                "reports",
+                "export"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
